@@ -52,8 +52,8 @@ const Home = () => {
 
       const newGuest: Guest = await response.json();
       setGuests([
-        { ...newGuest, entered_at: new Date(newGuest.entered_at) },
         ...guests,
+        { ...newGuest, entered_at: new Date(newGuest.entered_at) },
       ]);
       setNewGuestName("");
     } catch (e) {
