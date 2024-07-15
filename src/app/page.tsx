@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { validate } from "uuid";
 import { validateEmail } from "@/utils/validation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -91,6 +90,24 @@ const Home = () => {
     }
   };
 
+  const handleRemove = async (id: string) => {
+    try {
+      const response = await fetch(`/api/guest?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        toast.error("Failed to remove guest");
+        throw new Error("Failed to remove guest");
+      }
+
+      setGuests(guests.filter((guest) => guest.id !== id));
+      toast.success("Guest removed from the queue.");
+    } catch (e) {
+      console.error("Error removing guest: ", e);
+    }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -140,6 +157,12 @@ const Home = () => {
                   <div className="ml-4 text-sm text-gray-500">
                     {guest.entered_at.toLocaleString()}
                   </div>
+                  <button
+                    onClick={() => handleRemove(guest.id)}
+                    className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                  >
+                    Remove
+                  </button>
                 </div>
               </li>
             ))}

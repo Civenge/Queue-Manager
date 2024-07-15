@@ -2,7 +2,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import pool from "../../utils/postgres";
 import { v4 as uuidv4 } from "uuid";
-import { validateEmail } from "@/utils/validation";
 
 function sanitizeInput(input: string): string {
   let sanitizedInput = input.trim();
@@ -14,8 +13,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  let client;
   try {
-    const client = await pool.connect();
+    client = await pool.connect();
     console.log("Database connected");
 
     if (req.method === "GET") {
@@ -54,13 +54,27 @@ export default async function handler(
       );
       const newEntry = result.rows[0];
       res.status(201).json(newEntry);
+    } else if (req.method === "DELETE") {
+      const { id } = req.query;
+
+      if (!id || typeof id !== "string") {
+        res.status(400).json({ error: "Invalid ID" });
+        return;
+      }
+
+      await client.query("DELETE FROM queue WHERE id = $1", [id]);
+      res.status(200).json({ message: "Guest removed successfully" });
     } else {
-      res.setHeader("Allow", ["GET", "POST"]);
+      res.setHeader("Allow", ["GET", "POST", "DELETE"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
     client.release();
   } catch (e) {
     console.error("Error processing request: ", e);
     res.status(500).json({ error: "Internal Server Error" });
+  } finally {
+    if (client) {
+      client.release;
+    }
   }
 }
