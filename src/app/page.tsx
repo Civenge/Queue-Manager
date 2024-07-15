@@ -78,8 +78,10 @@ const Home = () => {
       ]);
       setNewGuestName("");
       setNewGuestEmail("");
+      toast.success("You have been added to the queue.");
     } catch (e) {
       console.error("Error adding guest: ", e);
+      toast.error("Failed to add guest.");
     }
   };
 
