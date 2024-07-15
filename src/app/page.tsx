@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { validate } from "uuid";
+import { validateEmail } from "@/utils/validation";
 
 interface Guest {
   id: string;
@@ -37,6 +39,21 @@ const Home = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!newGuestName.trim()) {
+      alert("Name is required");
+      return;
+    }
+
+    if (!newGuestEmail.trim()) {
+      alert("Email is required");
+      return;
+    }
+
+    if (!validateEmail(newGuestEmail)) {
+      alert("Please enter a valid email address such as: example@example.com");
+      return;
+    }
+
     try {
       const response = await fetch("/api/guest", {
         method: "POST",
@@ -56,6 +73,7 @@ const Home = () => {
         { ...newGuest, entered_at: new Date(newGuest.entered_at) },
       ]);
       setNewGuestName("");
+      setNewGuestEmail("");
     } catch (e) {
       console.error("Error adding guest: ", e);
     }

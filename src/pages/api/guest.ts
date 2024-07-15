@@ -2,17 +2,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import pool from "../../utils/postgres";
 import { v4 as uuidv4 } from "uuid";
+import { validateEmail } from "@/utils/validation";
 
 function sanitizeInput(input: string): string {
   let sanitizedInput = input.trim();
   sanitizedInput = sanitizedInput.replace(/<\/?[^>]+(>|$)/g, "");
   return sanitizedInput;
-}
-
-function validateEmail(email: string): boolean {
-  const trimmedEmail = email.trim();
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(trimmedEmail);
 }
 
 export default async function handler(
