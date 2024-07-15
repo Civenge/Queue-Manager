@@ -40,11 +40,6 @@ export default async function handler(
       const sanitizedName = sanitizeInput(name);
       const sanitizedEmail = sanitizeInput(email);
 
-      if (!validateEmail(sanitizedEmail)) {
-        res.status(400).json({ error: "Invalid email format." });
-        return;
-      }
-
       if (sanitizedName.length > 75 || sanitizedEmail.length > 75) {
         res
           .status(400)

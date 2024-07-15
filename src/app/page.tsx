@@ -68,6 +68,12 @@ const Home = () => {
       });
 
       if (!response.ok) {
+        const errorData = await response.json();
+        if (response.status === 400) {
+          toast.error(`Error: ${errorData.error}`);
+        } else {
+          toast.error("Failed to add guest");
+        }
         throw new Error("Failed to add guest");
       }
 
