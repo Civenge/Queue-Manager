@@ -139,13 +139,13 @@ const Home = () => {
           ></input>
           <button
             type="submit"
-            className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
           >
             Add to Queue
           </button>
         </form>
 
-        <div className="max-w-xl mx-auto h-[50vh] overflow-auto px-8">
+        <div className="max-w-4xl mx-auto h-[50vh] overflow-auto px-8">
           <ul className="divide-y divide-gray-200">
             {guests.map((guest) => (
               <li key={guest.id} className="py-4">
