@@ -159,7 +159,7 @@ const Home = () => {
                   </div>
                   <button
                     onClick={() => handleRemove(guest.id)}
-                    className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                    className="ml-4 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
                   >
                     Remove
                   </button>
