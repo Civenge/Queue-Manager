@@ -102,6 +102,7 @@ const Home = () => {
             <li key={guest.id} className="py-4">
               <div className="flex items-center justify-between">
                 <div className="text-lg font-semibold">{guest.name}</div>
+                <div className="ml-4 text-lg font-semibold">{guest.email}</div>
                 <div className="ml-4 text-sm text-gray-500">
                   {guest.entered_at.toLocaleString()}
                 </div>
