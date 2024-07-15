@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { validate } from "uuid";
 import { validateEmail } from "@/utils/validation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Guest {
   id: string;
@@ -40,17 +42,19 @@ const Home = () => {
     event.preventDefault();
 
     if (!newGuestName.trim()) {
-      alert("Name is required");
+      toast.error("Name is required");
       return;
     }
 
     if (!newGuestEmail.trim()) {
-      alert("Email is required");
+      toast.error("Email is required");
       return;
     }
 
     if (!validateEmail(newGuestEmail)) {
-      alert("Please enter a valid email address such as: example@example.com");
+      toast.error(
+        "Please enter a valid email address such as: example@example.com"
+      );
       return;
     }
 
@@ -80,56 +84,61 @@ const Home = () => {
   };
 
   return (
-    <main className="flex min-h-fit flex-col items-center justify-between p-24">
-      <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none  text-center text-4xl font-bold">
-        Welcome to Kyle&apos;s Queue Manager
-      </div>
-      <div>
-        <p className="py-2 px-4 text-20">
-          Please enter your information below to be added to the queue.
-        </p>
-      </div>
-      <form onSubmit={handleSubmit} className="mt-4 py-2">
-        <input
-          type="text"
-          value={newGuestName}
-          onChange={(e) => setNewGuestName(e.target.value)}
-          className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
-          placeholder="Enter your name here."
-          required
-        ></input>
-        <input
-          type="email"
-          value={newGuestEmail}
-          onChange={(e) => setNewGuestEmail(e.target.value)}
-          className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
-          placeholder="Enter your email here."
-          required
-        ></input>
-        <button
-          type="submit"
-          className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Add to Queue
-        </button>
-      </form>
+    <>
+      <ToastContainer />
+      <main className="flex min-h-fit flex-col items-center justify-between p-24">
+        <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none  text-center text-4xl font-bold">
+          Welcome to Kyle&apos;s Queue Manager
+        </div>
+        <div>
+          <p className="py-2 px-4 text-20">
+            Please enter your information below to be added to the queue.
+          </p>
+        </div>
+        <form onSubmit={handleSubmit} className="mt-4 py-2">
+          <input
+            type="text"
+            value={newGuestName}
+            onChange={(e) => setNewGuestName(e.target.value)}
+            className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
+            placeholder="Enter your name here."
+            required
+          ></input>
+          <input
+            type="email"
+            value={newGuestEmail}
+            onChange={(e) => setNewGuestEmail(e.target.value)}
+            className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
+            placeholder="Enter your email here."
+            required
+          ></input>
+          <button
+            type="submit"
+            className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            Add to Queue
+          </button>
+        </form>
 
-      <div className="max-w-xl mx-auto h-[50vh] overflow-auto px-8">
-        <ul className="divide-y divide-gray-200">
-          {guests.map((guest) => (
-            <li key={guest.id} className="py-4">
-              <div className="flex items-center justify-between">
-                <div className="text-lg font-semibold">{guest.name}</div>
-                <div className="ml-4 text-lg font-semibold">{guest.email}</div>
-                <div className="ml-4 text-sm text-gray-500">
-                  {guest.entered_at.toLocaleString()}
+        <div className="max-w-xl mx-auto h-[50vh] overflow-auto px-8">
+          <ul className="divide-y divide-gray-200">
+            {guests.map((guest) => (
+              <li key={guest.id} className="py-4">
+                <div className="flex items-center justify-between">
+                  <div className="text-lg font-semibold">{guest.name}</div>
+                  <div className="ml-4 text-lg font-semibold">
+                    {guest.email}
+                  </div>
+                  <div className="ml-4 text-sm text-gray-500">
+                    {guest.entered_at.toLocaleString()}
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </main>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </main>
+    </>
   );
 };
 
