@@ -37,7 +37,6 @@ export default async function handler(
       res.setHeader("Allow", ["POST"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    client.release();
   } catch (e) {
     console.error("Error processing request: ", e);
     res.status(500).json({ error: "Internal Server Error" });
