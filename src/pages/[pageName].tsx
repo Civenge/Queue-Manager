@@ -30,7 +30,7 @@ const Page = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`/api/guest?classroom=${pageName}`);
+      const response = await fetch(`/api/guest?pageName=${pageName}`);
       const data: Guest[] = await response.json();
 
       const guestsWithFormattedDates = data.map((guest) => ({
@@ -74,6 +74,7 @@ const Page = () => {
           name: newGuestName,
           email: newGuestEmail,
           classroom: pageName,
+          pageName,
         }),
       });
 
