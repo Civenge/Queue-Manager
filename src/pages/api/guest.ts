@@ -2,12 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import pool from "../../utils/postgres";
 import { v4 as uuidv4 } from "uuid";
-
-function sanitizeInput(input: string): string {
-  let sanitizedInput = input.trim();
-  sanitizedInput = sanitizedInput.replace(/<\/?[^>]+(>|$)/g, "");
-  return sanitizedInput;
-}
+import { sanitizeInput } from "@/utils/validation";
 
 export default async function handler(
   req: NextApiRequest,
