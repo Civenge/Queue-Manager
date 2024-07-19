@@ -124,7 +124,7 @@ const Page = () => {
   return (
     <>
       <ToastContainer />
-      <main className="grid grid-cols-4 min-h-fit p-24 gap-4">
+      <main className="grid grid-cols-4 min-h-screen p-24 gap-4 bg-gray-300">
         <div className="col-span-3 flex flex-col items-center">
           <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none text-center text-4xl font-bold">
             Welcome to the TA Queue Manager
