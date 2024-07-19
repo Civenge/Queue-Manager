@@ -24,14 +24,14 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <aside className="sidebar py-2 px-4 text-blue-500 rounded-md focus:outline-none">
+    <aside className="sidebar py-2 px-4 bg-black text-blue-500 rounded-md focus:outline-none text-2xl">
       <h2 className="text-center text-2xl font-bold mb-4">Existing Classes:</h2>
       <ul>
         {pages.map((page) => (
           <li key={page.id} className="mb-2">
             <Link
               href={`/${page.name}`}
-              className="text-blue-500 hover:underline"
+              className="text-blue-500 hover:underline hover:text-yellow-300"
             >
               {page.name}
             </Link>
