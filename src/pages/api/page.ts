@@ -33,6 +33,12 @@ export default async function handler(
       );
       const newPage = result.rows[0];
       res.status(201).json(newPage);
+    } else if (req.method === "GET") {
+      const result = await client.query(
+        "SELECT id, name FROM pages ORDER BY created_at ASC"
+      );
+      const pages = result.rows; // Use rows directly since it now includes `id`
+      res.status(200).json({ pages });
     } else {
       res.setHeader("Allow", ["POST"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
