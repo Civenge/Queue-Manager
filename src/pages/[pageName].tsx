@@ -6,6 +6,7 @@ import { validateEmail } from "@/utils/validation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "tailwindcss/tailwind.css";
+import Sidebar from "@/components/Sidebar";
 
 interface Guest {
   id: string;
@@ -123,63 +124,68 @@ const Page = () => {
   return (
     <>
       <ToastContainer />
-      <main className="flex min-h-fit flex-col items-center justify-between p-24">
-        <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none text-center text-4xl font-bold">
-          Welcome to the TA Queue Manager
-        </div>
+      <main className="grid grid-cols-4 min-h-fit p-24 gap-4">
+        <div className="col-span-3 flex flex-col items-center">
+          <div className="py-2 px-4 text-blue-500 rounded-md focus:outline-none text-center text-4xl font-bold">
+            Welcome to the TA Queue Manager
+          </div>
 
-        <div>
-          <p className="py-2 px-4 text-20">
-            Please enter your information below to be added to the queue.
-          </p>
-        </div>
-        <form onSubmit={handleSubmit} className="mt-4 py-2">
-          <input
-            type="text"
-            value={newGuestName}
-            onChange={(e) => setNewGuestName(e.target.value)}
-            className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
-            placeholder="Enter your name here."
-            required
-          ></input>
-          <input
-            type="email"
-            value={newGuestEmail}
-            onChange={(e) => setNewGuestEmail(e.target.value)}
-            className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
-            placeholder="Enter your email here."
-            required
-          ></input>
-          <button
-            type="submit"
-            className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
-          >
-            Add to Queue
-          </button>
-        </form>
+          <div>
+            <p className="py-2 px-4 text-20">
+              Please enter your information below to be added to the queue.
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="mt-4 py-2">
+            <input
+              type="text"
+              value={newGuestName}
+              onChange={(e) => setNewGuestName(e.target.value)}
+              className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
+              placeholder="Enter your name here."
+              required
+            ></input>
+            <input
+              type="email"
+              value={newGuestEmail}
+              onChange={(e) => setNewGuestEmail(e.target.value)}
+              className="py-2 px-4 mr-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-300"
+              placeholder="Enter your email here."
+              required
+            ></input>
+            <button
+              type="submit"
+              className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
+            >
+              Add to Queue
+            </button>
+          </form>
 
-        <div className="max-w-4xl mx-auto h-[50vh] overflow-auto px-8">
-          <ul className="divide-y divide-gray-200">
-            {guests.map((guest) => (
-              <li key={guest.id} className="py-4">
-                <div className="flex items-center justify-between">
-                  <div className="text-lg font-semibold">{guest.name}</div>
-                  <div className="ml-4 text-lg font-semibold">
-                    {guest.email}
+          <div className="max-w-4xl mx-auto h-[50vh] overflow-auto px-8">
+            <ul className="divide-y divide-gray-200">
+              {guests.map((guest) => (
+                <li key={guest.id} className="py-4">
+                  <div className="flex items-center justify-between">
+                    <div className="text-lg font-semibold">{guest.name}</div>
+                    <div className="ml-4 text-lg font-semibold">
+                      {guest.email}
+                    </div>
+                    <div className="ml-4 text-sm text-gray-500">
+                      {guest.entered_at.toLocaleString()}
+                    </div>
+                    <button
+                      onClick={() => handleRemove(guest.id)}
+                      className="ml-4 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
+                    >
+                      Remove
+                    </button>
                   </div>
-                  <div className="ml-4 text-sm text-gray-500">
-                    {guest.entered_at.toLocaleString()}
-                  </div>
-                  <button
-                    onClick={() => handleRemove(guest.id)}
-                    className="ml-4 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-                  >
-                    Remove
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="col-span-1">
+          <Sidebar />
         </div>
       </main>
     </>
