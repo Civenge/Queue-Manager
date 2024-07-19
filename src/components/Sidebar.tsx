@@ -38,6 +38,14 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
+      <div className="mt-8 mb-4">
+        <Link
+          href="/"
+          className="text-blue-500 hover:text-yellow-300 text-2xl font-semibold"
+        >
+          Back to Homepage
+        </Link>
+      </div>
     </aside>
   );
 };
